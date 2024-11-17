@@ -28,13 +28,29 @@ const uploadAssignment = async (req, res) => {
 };
 
 //Fetch an admin's assignments
+//GET /assignments?status=accepted
 const fetchAdminAssignments = async (req, res) => {
+  const match = {}
   try {
+    if (req.query.status) {
+      const { status } = req.query;
+      const validStatuses = ['pending', 'accepted', 'rejected']
+      if (status && !validStatuses.includes(status)) {
+        return res.status(400).send({
+          error: 'Invalid status filter.'
+        });
+      }
+      
+      match.status = req.query.status;
+    }
+
     await req.user.populate({
       path: "reviewedAssignments",
+      match
     });
     res.send(req.user.reviewedAssignments);
   } catch (error) {
+    console.log(error);
     res.status(500).send({
       errorMessage: "Error fetching assignments",
       details: error,
