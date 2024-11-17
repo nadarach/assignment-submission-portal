@@ -1,13 +1,13 @@
 const express = require('express');
 const authenticate = require('../middleware/authenticate');
-const { authorizeAdmin, authorizeUser } = require('../middleware/authorize');
+const { authorizeAdmin } = require('../middleware/authorize');
 const Assignment = require('../models/assignment');
 const { uploadAssignment, fetchAdminAssignments, updateAssignmentStatus } = require("../controllers/assignmentController");
 
 const router = new express.Router();
 
 //route for uploading an assignment
-router.post('/upload', authenticate, authorizeUser, uploadAssignment);
+router.post('/upload', authenticate, uploadAssignment);
 
 //Route for viewing assignments tagged to the admin
 router.get('', authenticate, authorizeAdmin, fetchAdminAssignments);
