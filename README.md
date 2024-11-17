@@ -82,11 +82,12 @@ The server will run on `http:localhost:3000` by default.
 | POST          | `/assignments/:id/accept`     | Accept an assignment.                      | { "status": "accepted" } |
 | POST          | `/assignments/:id/reject`     | Reject an assignment.                      | { "status": "rejected" } |
 
+## **Project Structure**
 ```bash
 backend-intern-assignment/
+├── config/                 # Configuration files (# Environment variables)
 ├── src/
 │   ├── controllers/        # Controller logic
-│   ├── config/             # Configuration files (# Environment variables)
 │   ├── db/                 # Database connection
 │   ├── middleware/         # Authentication & authorization
 │   ├── models/             # Database schemas
